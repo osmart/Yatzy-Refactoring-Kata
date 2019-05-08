@@ -24,13 +24,11 @@ class Yatzy:
 
     @staticmethod
     def chance(d1, d2, d3, d4, d5):
-        total = 0
-        total += d1
-        total += d2
-        total += d3
-        total += d4
-        total += d5
-        return total
+        """
+        In chance the player scores the sum of all dice,
+        no matter what they read.
+        """
+        return YatzyClean([d1, d2, d3, d4, d5]).chance
 
     @staticmethod
     def yatzy(dice):
@@ -229,6 +227,14 @@ class YatzyClean(object):
     """
     def __init__(self, dice):
         self.dice = dice
+
+    @property
+    def chance(self):
+        """
+        In chance the player scores the sum of all dice,
+        no matter what they read.
+        """
+        return sum([d for d in self.dice])
 
     @property
     def fours(self):

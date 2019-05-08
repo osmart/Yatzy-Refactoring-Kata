@@ -1,3 +1,5 @@
+from collections import Counter
+
 class Yatzy:
     """
     Class to score Yatzy simple dice game. This class interface
@@ -32,13 +34,7 @@ class Yatzy:
 
     @staticmethod
     def yatzy(dice):
-        counts = [0]*(len(dice)+1)
-        for die in dice:
-            counts[die-1] += 1
-        for i in range(len(counts)):
-            if counts[i] == 5:
-                return 50
-        return 0
+        return YatzyClean(dice).yatzy
 
     @staticmethod
     def ones( d1,  d2,  d3,  d4,  d5):
@@ -235,6 +231,16 @@ class YatzyClean(object):
         no matter what they read.
         """
         return sum([d for d in self.dice])
+
+    @property
+    def yatzy(self):
+        """
+        If all dice have the same number, the player scores 50 points.
+        """
+        if len(Counter(self.dice)) == 1:
+            return 50
+        else:
+            return 0
 
     @property
     def fours(self):

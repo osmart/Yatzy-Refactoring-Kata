@@ -105,37 +105,12 @@ class Yatzy:
         return YatzyClean([d1, d2, d3, d4, d5]).large_straight
 
     @staticmethod
-    def fullHouse( d1,  d2,  d3,  d4,  d5):
-        tallies = []
-        _2 = False
-        i = 0
-        _2_at = 0
-        _3 = False
-        _3_at = 0
-
-        tallies = [0]*6
-        tallies[d1-1] += 1
-        tallies[d2-1] += 1
-        tallies[d3-1] += 1
-        tallies[d4-1] += 1
-        tallies[d5-1] += 1
-
-        for i in range(6):
-            if (tallies[i] == 2):
-                _2 = True
-                _2_at = i+1
-
-
-        for i in range(6):
-            if (tallies[i] == 3):
-                _3 = True
-                _3_at = i+1
-
-
-        if (_2 and _3):
-            return _2_at * 2 + _3_at * 3
-        else:
-            return 0
+    def fullHouse(d1,  d2,  d3,  d4,  d5):
+        """
+        If the dice are two of a kind and three of a kind,
+        the player scores the sum of all the dice.
+        """
+        return YatzyClean([d1, d2, d3, d4, d5]).full_house
 
 
 class YatzyClean(object):
@@ -259,6 +234,19 @@ class YatzyClean(object):
         """
         if sorted(self.dice) == [2, 3, 4, 5, 6]:
             return 20
+        else:
+            return 0
+
+    @property
+    def full_house(self):
+        """
+        If the dice are two of a kind and three of a kind,
+        the player scores the sum of all the dice.
+        """
+        counts = Counter(self.dice)
+        most_common_two = counts.most_common(2)
+        if most_common_two[0][1] == 3 and most_common_two[1][1] == 2:
+            return self.chance
         else:
             return 0
 

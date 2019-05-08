@@ -57,17 +57,11 @@ class Yatzy:
 
     @staticmethod
     def score_pair( d1,  d2,  d3,  d4,  d5):
-        counts = [0]*6
-        counts[d1-1] += 1
-        counts[d2-1] += 1
-        counts[d3-1] += 1
-        counts[d4-1] += 1
-        counts[d5-1] += 1
-        at = 0
-        for at in range(6):
-            if (counts[6-at-1] == 2):
-                return (6-at)*2
-        return 0
+        """
+        The player scores the sum of the two highest matching dice.
+        """
+        return YatzyClean([d1, d2, d3, d4, d5]).pair
+
 
     @staticmethod
     def two_pair( d1,  d2,  d3,  d4,  d5):
@@ -243,6 +237,15 @@ class YatzyClean(object):
     def sixes(self):
         """ returns the sum of dice that are 6 """
         return self.__numbers(6)
+
+    @property
+    def pair(self):
+        """ scores the sum of the two highest matching dice. """
+        counts = Counter(self.dice)
+        for d in 6, 5, 4, 3, 2, 1:
+            if counts[d] >= 2:
+                return 2*d
+        return 0
 
     def __numbers(self, number):
         """ returns the of the dice that match the number """

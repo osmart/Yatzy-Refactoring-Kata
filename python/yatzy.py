@@ -50,6 +50,9 @@ class Yatzy:
 
     @staticmethod
     def yatzy(dice):
+        """
+        If all dice have the same number, the player scores 50 points.
+        """
         return YatzyClean(dice).yatzy
 
     @staticmethod

@@ -87,38 +87,22 @@ class Yatzy:
         return YatzyClean([d1, d2, d3, d4, d5]).three_of_a_kind
 
     @staticmethod
-    def smallStraight( d1,  d2,  d3,  d4,  d5):
-        tallies = [0]*6
-        tallies[d1-1] += 1
-        tallies[d2-1] += 1
-        tallies[d3-1] += 1
-        tallies[d4-1] += 1
-        tallies[d5-1] += 1
-        if (tallies[0] == 1 and
-            tallies[1] == 1 and
-            tallies[2] == 1 and
-            tallies[3] == 1 and
-            tallies[4] == 1):
-            return 15
-        return 0
-
+    def smallStraight(d1,  d2,  d3,  d4,  d5):
+        """
+        When placed on "small straight", if the dice read
+        1,2,3,4,5,
+        the player scores 15 (the sum of all the dice).
+        """
+        return YatzyClean([d1, d2, d3, d4, d5]).small_straight
 
     @staticmethod
-    def largeStraight( d1,  d2,  d3,  d4,  d5):
-        tallies = [0]*6
-        tallies[d1-1] += 1
-        tallies[d2-1] += 1
-        tallies[d3-1] += 1
-        tallies[d4-1] += 1
-        tallies[d5-1] += 1
-        if (tallies[1] == 1 and
-            tallies[2] == 1 and
-            tallies[3] == 1 and
-            tallies[4] == 1
-            and tallies[5] == 1):
-            return 20
-        return 0
-
+    def largeStraight(d1,  d2,  d3,  d4,  d5):
+        """
+        When placed on "large straight", if the dice read
+        2,3,4,5,6,
+        the player scores 20 (the sum of all the dice).
+        """
+        return YatzyClean([d1, d2, d3, d4, d5]).large_straight
 
     @staticmethod
     def fullHouse( d1,  d2,  d3,  d4,  d5):
@@ -253,6 +237,30 @@ class YatzyClean(object):
         the player scores the sum of these dice.
         """
         return self.__of_a_kind(3)
+
+    @property
+    def small_straight(self):
+        """
+        When placed on "small straight", if the dice read
+        1,2,3,4,5,
+        the player scores 15 (the sum of all the dice).
+        """
+        if sorted(self.dice) == [1, 2, 3, 4, 5]:
+            return 15
+        else:
+            return 0
+
+    @property
+    def large_straight(self):
+        """
+        When placed on "large straight", if the dice read
+        2,3,4,5,6,
+        the player scores 20 (the sum of all the dice).
+        """
+        if sorted(self.dice) == [2, 3, 4, 5, 6]:
+            return 20
+        else:
+            return 0
 
     def __of_a_kind(self, n_kind):
         """

@@ -1,5 +1,6 @@
 from collections import Counter
 
+
 class Yatzy:
     """
     Class to score Yatzy simple dice game. This class interface
@@ -11,6 +12,21 @@ class Yatzy:
 
     def __init__(self, d1, d2, d3, d4, d5):
         self.dice = [d1, d2, d3, d4, d5]
+
+    @staticmethod
+    def ones(d1,  d2,  d3,  d4,  d5):
+        """ returns the sum of dice that are 1 """
+        return YatzyClean([d1, d2, d3, d4, d5]).ones
+
+    @staticmethod
+    def twos(d1,  d2,  d3,  d4,  d5):
+        """ returns the sum of dice that are 2 """
+        return YatzyClean([d1, d2, d3, d4, d5]).twos
+
+    @staticmethod
+    def threes(d1,  d2,  d3,  d4,  d5):
+        """ returns the sum of dice that are 3 """
+        return YatzyClean([d1, d2, d3, d4, d5]).threes
 
     def fours(self):
         """ returns the sum of dice that are 4 """
@@ -35,53 +51,6 @@ class Yatzy:
     @staticmethod
     def yatzy(dice):
         return YatzyClean(dice).yatzy
-
-    @staticmethod
-    def ones( d1,  d2,  d3,  d4,  d5):
-        sum = 0
-        if (d1 == 1):
-            sum += 1
-        if (d2 == 1):
-            sum += 1
-        if (d3 == 1):
-            sum += 1
-        if (d4 == 1):
-            sum += 1
-        if (d5 == 1):
-            sum += 1
-
-        return sum
-
-
-    @staticmethod
-    def twos( d1,  d2,  d3,  d4,  d5):
-        sum = 0
-        if (d1 == 2):
-             sum += 2
-        if (d2 == 2):
-             sum += 2
-        if (d3 == 2):
-             sum += 2
-        if (d4 == 2):
-             sum += 2
-        if (d5 == 2):
-             sum += 2
-        return sum
-
-    @staticmethod
-    def threes( d1,  d2,  d3,  d4,  d5):
-        s = 0
-        if (d1 == 3):
-             s += 3
-        if (d2 == 3):
-             s += 3
-        if (d3 == 3):
-             s += 3
-        if (d4 == 3):
-             s += 3
-        if (d5 == 3):
-             s += 3
-        return s
 
     @staticmethod
     def score_pair( d1,  d2,  d3,  d4,  d5):
@@ -241,6 +210,21 @@ class YatzyClean(object):
             return 50
         else:
             return 0
+
+    @property
+    def ones(self):
+        """ returns the sum of dice that are 1 """
+        return self.__numbers(1)
+
+    @property
+    def twos(self):
+        """ returns the sum of dice that are 2 """
+        return self.__numbers(2)
+
+    @property
+    def threes(self):
+        """ returns the sum of dice that are 3 """
+        return self.__numbers(3)
 
     @property
     def fours(self):

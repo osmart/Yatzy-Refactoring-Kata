@@ -62,26 +62,13 @@ class Yatzy:
         """
         return YatzyClean([d1, d2, d3, d4, d5]).pair
 
-
     @staticmethod
-    def two_pair( d1,  d2,  d3,  d4,  d5):
-        counts = [0]*6
-        counts[d1-1] += 1
-        counts[d2-1] += 1
-        counts[d3-1] += 1
-        counts[d4-1] += 1
-        counts[d5-1] += 1
-        n = 0
-        score = 0
-        for i in range(6):
-            if (counts[6-i-1] >= 2):
-                n = n+1
-                score += (6-i)
-
-        if (n == 2):
-            return score * 2
-        else:
-            return 0
+    def two_pair(d1,  d2,  d3,  d4,  d5):
+        """
+        If there are two pairs of dice with the same number,
+        the player scores the sum of these dice.
+        """
+        return YatzyClean([d1, d2, d3, d4, d5]).two_pair
 
     @staticmethod
     def four_of_a_kind( _1,  _2,  d3,  d4,  d5):
@@ -246,6 +233,22 @@ class YatzyClean(object):
             if counts[d] >= 2:
                 return 2*d
         return 0
+
+    @property
+    def two_pair(self):
+        """
+        If there are two pairs of dice with the same number,
+        the player scores the sum of these dice.
+        """
+        counts = Counter(self.dice)
+        pair = []
+        for d in 6, 5, 4, 3, 2, 1:
+            if counts[d] >= 2:
+                pair.append(d)
+        if len(pair) == 2:
+            return 2*sum(pair)
+        else:
+            return 0
 
     def __numbers(self, number):
         """ returns the of the dice that match the number """

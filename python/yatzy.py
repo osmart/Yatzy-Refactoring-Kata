@@ -1,23 +1,26 @@
 class Yatzy:
+    """
+    Class to score Yatzy simple dice game. This class interface
+    is deprecated and will be dropped in a future release. Please
+    update to use the YatzyClean class.
+
+    See https://github.com/emilybache/Yatzy-Refactoring-Kata
+    """
 
     def __init__(self, d1, d2, d3, d4, d5):
         self.dice = [d1, d2, d3, d4, d5]
 
     def fours(self):
         """ returns the sum of dice that are 4 """
-        return self._numbers(4)
+        return YatzyClean(self.dice).fours
 
     def fives(self):
         """ returns the sum of dice that are 5 """
-        return self._numbers(5)
+        return YatzyClean(self.dice).fives
 
     def sixes(self):
         """ returns the sum of dice that are 6 """
-        return self._numbers(6)
-
-    def _numbers(self, number):
-        """ returns the of the dice that match the number """
-        return sum([d for d in self.dice if d == number])
+        return YatzyClean(self.dice).sixes
 
     @staticmethod
     def chance(d1, d2, d3, d4, d5):
@@ -214,3 +217,34 @@ class Yatzy:
             return _2_at * 2 + _3_at * 3
         else:
             return 0
+
+
+class YatzyClean(object):
+    """
+    Class to score Yatzy simple dice game. This is a clean
+    reimplementation that will ultimately replace the
+    original Yatzy class above.
+
+    See https://github.com/emilybache/Yatzy-Refactoring-Kata
+    """
+    def __init__(self, dice):
+        self.dice = dice
+
+    @property
+    def fours(self):
+        """ returns the sum of dice that are 4 """
+        return self.__numbers(4)
+
+    @property
+    def fives(self):
+        """ returns the sum of dice that are 5 """
+        return self.__numbers(5)
+
+    @property
+    def sixes(self):
+        """ returns the sum of dice that are 6 """
+        return self.__numbers(6)
+
+    def __numbers(self, number):
+        """ returns the of the dice that match the number """
+        return sum([d for d in self.dice if d == number])

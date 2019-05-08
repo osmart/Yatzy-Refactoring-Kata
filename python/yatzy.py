@@ -56,7 +56,7 @@ class Yatzy:
         return YatzyClean(dice).yatzy
 
     @staticmethod
-    def score_pair( d1,  d2,  d3,  d4,  d5):
+    def score_pair(d1,  d2,  d3,  d4,  d5):
         """
         The player scores the sum of the two highest matching dice.
         """
